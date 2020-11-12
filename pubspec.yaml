@@ -19,10 +19,14 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
+  
 
 dependencies:
+  
   flutter:
     sdk: flutter
+  bubble_tab_indicator: "^0.1.4"
+  flutter_toggle_tab: "^0.0.3+2"
 
 
   # The following adds the Cupertino Icons font to your application.

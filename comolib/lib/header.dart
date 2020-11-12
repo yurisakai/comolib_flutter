@@ -18,9 +18,9 @@ class Header extends StatelessWidget with PreferredSizeWidget {
         ),
       ],
       title: Text(
-        '福岡エリアのオススメ情報',
+        'ホーム',
       ),
-      backgroundColor: Colors.blue[200],
+      backgroundColor: Colors.black87,
       centerTitle: true,
       elevation: 0.0,
     );
