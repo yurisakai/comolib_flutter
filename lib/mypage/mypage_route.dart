@@ -11,11 +11,12 @@ class _MyPageState extends State<MyPage> {
 
   Widget segmentedControl() {
     return Container(
-      width: 300,
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      margin: EdgeInsets.only(top: 10),
+      width: double.infinity,
       child: CupertinoSlidingSegmentedControl(
           groupValue: segmentedControlValue,
           thumbColor: Colors.deepOrange,
-          // pressedColor: Colors.white,
           backgroundColor: Colors.grey[200],
           children: const <int, Widget>{
             0: Text(
@@ -42,10 +43,7 @@ class _MyPageState extends State<MyPage> {
         title: Text('マイページ'),
         backgroundColor: Colors.blue[400],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 30.0, left: 50),
-        child: segmentedControl(),
-      ),
+      body: segmentedControl(),
     );
   }
 }
