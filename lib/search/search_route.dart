@@ -183,14 +183,25 @@ class SearchState extends State<Search> {
                     child: Text('クリア'),
                     color: Colors.grey[600],
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        checkBox1Value = false;
+                        checkBox2Value = false;
+                        checkBox3Value = false;
+                        checkBox4Value = false;
+                        checkBox5Value = false;
+                      });
+                    },
                   ),
                 ),
                 SizedBox(
                   height: 37.0,
                   width: 165.0,
                   child: FlatButton(
-                    child: Text('検索する'),
+                    child: Text(
+                      '検索する',
+                      style: TextStyle(fontSize: 10),
+                    ),
                     color: Colors.blue[400],
                     textColor: Colors.white,
                     onPressed: () {},
