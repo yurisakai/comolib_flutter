@@ -198,10 +198,7 @@ class SearchState extends State<Search> {
                   height: 37.0,
                   width: 165.0,
                   child: FlatButton(
-                    child: Text(
-                      '検索する',
-                      style: TextStyle(fontSize: 10),
-                    ),
+                    child: Text('検索する'),
                     color: Colors.blue[400],
                     textColor: Colors.white,
                     onPressed: () {},
