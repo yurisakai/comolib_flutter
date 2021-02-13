@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:comolib/mypage/mypage_profile.dart';
+import 'package:comolib/mypage/mypage_follow.dart';
+import 'package:comolib/mypage/mypage_settei.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//sss
 class MyPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MyPageState();
@@ -30,6 +34,10 @@ class MyPageState extends State<MyPage> {
               //   // height: 300,
               //   color: Colors.red,
 
+
+
+
+              // Stack は下にくるコードを下に書いて、上にのせる（重ねる）コードを上に書く　　　　　　　　　
               Stack(
                 children: [
                   Container(
@@ -40,29 +48,59 @@ class MyPageState extends State<MyPage> {
                         4,
 
                     width: double.infinity,
-                    // child: Image(image: null),
+
                   ),
                   Center(
                     child: Container(
-                      margin: EdgeInsets.only(top: 30),
-                      height: 90.0, width: 90.0,
-                      decoration: BoxDecoration(
+                      height: 120,
+                      width: 120,
+                    decoration: BoxDecoration(
+                          color: Colors.grey.shade100.withOpacity(0.55),
+                          shape: BoxShape.circle,
                           image: DecorationImage(
-                            fit: BoxFit.fill,
                             image: NetworkImage(
                                 'https://cdn.pixabay.com/photo/2020/11/03/23/55/cookies-5711139_1280.jpg'),
+                            fit: BoxFit.fill,
                           ),
-                          shape: BoxShape.circle),
-                      // color: Colors.red,
-                      // child: CircleAvatar(
-                      //   radius: 50.0,
-                      //   backgroundImage: NetworkImage(
-                      //       'https://cdn.pixabay.com/photo/2020/11/03/23/55/cookies-5711139_1280.jpg'),
-                      //   backgroundColor: Colors.transparent,
-                      //   // ),
-                      // ),
-                    ),
-                  ),
+                        ),
+                        child: Container(
+
+                            child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 30),
+                                  height: 90.0,
+                                  width: 90.0,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                            'https://cdn.pixabay.com/photo/2020/11/03/23/55/cookies-5711139_1280.jpg'),
+                                      ),
+                                      shape: BoxShape.circle),
+                                )))
+
+                        // child: Container(
+                        //   margin: EdgeInsets.only(top: 30),
+                        //   height: 90.0, width: 90.0,
+                        //   decoration: BoxDecoration(
+                        //       image: DecorationImage(
+                        //         fit: BoxFit.fill,
+                        //         image: NetworkImage(
+                        //             'https://cdn.pixabay.com/photo/2020/11/03/23/55/cookies-5711139_1280.jpg'),
+                        //       ),
+                        //       shape: BoxShape.circle),
+                        //   // color: Colors.red,
+                        //   // child: CircleAvatar(
+                        //   //   radius: 50.0,
+                        //   //   backgroundImage: NetworkImage(
+                        //   //       'https://cdn.pixabay.com/photo/2020/11/03/23/55/cookies-5711139_1280.jpg'),
+                        //   //   backgroundColor: Colors.transparent,
+                        //   //   // ),
+                        //   // ),
+                        // ),
+                        ),
+                  )
                 ],
               ),
               Row(children: [
@@ -168,12 +206,32 @@ class MyPageState extends State<MyPage> {
                 padding: EdgeInsets.all(10),
                 shrinkWrap: true,
                 children: [
-                  _setting('プロフィール', Icon(Icons.navigate_next)),
-                  _setting('フォローしている / されている', Icon(Icons.navigate_next)),
-                  _setting('設定', Icon(Icons.navigate_next)),
-                  _setting('登録されていない施設を登録する', Icon(Icons.navigate_next)),
-                  _setting('利用規約', Icon(Icons.navigate_next)),
-                  _setting('プライバシーポリシー', Icon(Icons.navigate_next)),
+                  _setting('プロフィール', Icon(Icons.navigate_next), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<Null>(
+                          builder: (BuildContext context) =>
+                              ProfilEditeScreen()),
+                    );
+                  }),
+                  _setting('フォローしている / されている', Icon(Icons.navigate_next), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<Null>(
+                          builder: (BuildContext context) =>
+                              FollowAndFollowerScreen()),
+                    );
+                  }),
+                  _setting('設定', Icon(Icons.navigate_next), () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<Null>(
+                          builder: (BuildContext context) => SetteiScreen()),
+                    );
+                  }),
+                  _setting('登録されていない施設を登録する', Icon(Icons.navigate_next), null),
+                  _setting('利用規約', Icon(Icons.navigate_next), null),
+                  _setting('プライバシーポリシー', Icon(Icons.navigate_next), null),
                 ],
               ),
               SizedBox(height: 8),
@@ -187,7 +245,29 @@ class MyPageState extends State<MyPage> {
                   ),
                   color: Colors.grey[400],
                   textColor: Colors.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CupertinoAlertDialog(
+                          // title: Text("タイトル"),
+                          content: Text(
+                              "再ログインには外部サービスの連携またはメールアドレスの設定が必要です。\n本当にログアウトしますか？"),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text("いいえ"),
+                              // isDestructiveAction: true　　⬅︎　いいえ の部分を赤にする
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            CupertinoDialogAction(
+                              child: Text("はい"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],
@@ -197,7 +277,7 @@ class MyPageState extends State<MyPage> {
     );
   }
 
-  Widget _setting(String title, Icon icon) {
+  Widget _setting(String title, Icon icon, GestureTapCallback onTap) {
     return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(8),
@@ -222,13 +302,7 @@ class MyPageState extends State<MyPage> {
           ],
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Null>(
-              builder: (BuildContext context) => ProfilEditeScreen()),
-        );
-      },
+      onTap: onTap,
     );
   }
 }
